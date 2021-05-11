@@ -7,6 +7,7 @@ import base64
 import requests
 import time
 import threading
+import multiprocessing
 import logging
 import pymysql
 import os
@@ -238,7 +239,8 @@ def alp_check(message, viid_filter: list, viid_dict: dict):
 
 if __name__ == '__main__':
     #log日志落地路径
-    log_prefix = '/minio_data/1400check/'
+    # log_prefix = '/minio_data/1400check/'
+    log_prefix = '/usr/local/nginx/html/'
 
     # 从MySQL db1400 t_viid_system表获取所有下级视图库的平台ID和名称
     mydb_inner = pymysql.connect(host='13.32.4.170', port=3306, user='alpview', password='123456', db='db1400', charset='utf8')
@@ -266,8 +268,13 @@ if __name__ == '__main__':
 
     for message in consumer:
         now = str(time.strftime("%Y-%m-%d %H:%M:%S"))
-        thread = threading.Thread(target=alp_check, args=(message, viid_filter, viid_dict))
-        thread.start()
+        p = multiprocessing.Process(target=alp_check, args=(message, viid_filter, viid_dict))
+        p.start()
+
+    # for message in consumer:
+    #     now = str(time.strftime("%Y-%m-%d %H:%M:%S"))
+    #     thread = threading.Thread(target=alp_check, args=(message, viid_filter, viid_dict))
+    #     thread.start()
 
 
     # for message in consumer:

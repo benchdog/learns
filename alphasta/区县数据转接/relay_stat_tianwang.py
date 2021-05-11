@@ -1,12 +1,14 @@
 import pymysql
 import time
 
+#minio_prefix = "http://13.32.4.172:7000/1400check/"
+minio_prefix = "http://13.32.4.172/"
 #html head标签加上当天日期
 today=time.strftime("%Y-%m-%d", time.localtime())
 
-html_path='./relay_stat.html'
-# html_path='/usr/local/nginx/html/relay_stat.html'
-db = pymysql.connect(
+html_path='./relay_stat_tianwang.html'
+# html_path='/usr/local/nginx/html/relay_stat_tianwang.html'
+conn = pymysql.connect(
         host='13.32.4.170',
         # host='192.168.23.112',
         port=3306,
@@ -20,7 +22,7 @@ def mysql_select(sql):
     res_select = ()
     try:
         # print('查询')
-        cursor = db.cursor()
+        cursor = conn.cursor()
         cursor.execute(sql)
         res_select = cursor.fetchall()
     except Exception as e:
@@ -81,19 +83,19 @@ line_data=''
 for k,v in dict_push.items():
     if '其他上报' not in v.keys():
         v['其他上报'] = 0
-    line_data += '<tr><td>' + k + '</td>\n<td>' + str(v['人脸有效']) + '</td>\n<td>' + str(v['车辆有效']) + '</td>\n<td>' + str(v['人脸上报']) + '</td>\n<td>' + str(v['车辆上报']) + '</td>\n<td>' + str(v['其他上报']) + '</td>\n<td>' + str(v['卡口上报']) + '</td></tr>\n'
+    line_data += '<tr><td>' + k + '</td>\n<td>' + str(v['人脸有效']) + '</td>\n<td>' + str(v['车辆有效']) + '</td>\n<td>' + str(v['人脸上报']) + '</td>\n<td>' + str(v['车辆上报']) + '</td>\n<td>' + str(v['其他上报']) + '</td>\n<td>' + str(v['卡口上报']) + '</td>\n<td><a href="' + minio_prefix + k + '.html">点击查看</a></td></tr>\n'
 
 line_data += '</table>\n</body>\n</html>'
 lines = []
 with open(html_path,encoding='utf8') as fr:
     for line in fr:
         lines.append(line)
-lines = lines[:27]
+lines = lines[:28]
 lines[14] = '<h1>市本级设备检测平台 ' + today + '</h1>\n'
 lines.append(line_data)
 s = ''.join(lines)
 with open(html_path,'w',encoding='utf8') as fw:
     fw.write(s)
 
-db.close()
+conn.close()
 print('脚本完成!')

@@ -1168,3 +1168,7 @@ import time
 # print(time.time() - before)
 
 # print(len(None))
+
+import multiprocessing
+print('cpu内核数量：%s' % multiprocessing.cpu_count())
+

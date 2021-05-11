@@ -1,11 +1,13 @@
 import pymysql
 import time
 
+#minio_prefix = "http://111.61.198.117:51183/1400check/"
+minio_prefix = "http://111.61.198.117:51183/"
 #html head标签加上当天日期
 today=time.strftime("%Y-%m-%d", time.localtime())
 
-html_path= 'relay_stat_outter.html'
-# html_path='/usr/local/nginx/html/relay_stat_outter.html'
+html_path= 'relay_stat_zhihui.html'
+# html_path='/usr/local/nginx/html/relay_stat_zhihui.html'
 conn_inner = pymysql.connect(
         # host='27.27.27.16',
         host='13.32.4.170',
@@ -133,14 +135,14 @@ line_data=''
 for k,v in dict_push.items():
     if '其他上报' not in v.keys():
         v['其他上报'] = 0
-    line_data += '<tr><td>' + k + '</td>\n<td>' + str(v['人脸有效']) + '</td>\n<td>' + str(v['车辆有效']) + '</td>\n<td>' + str(v['人脸上报']) + '</td>\n<td>' + str(v['车辆上报']) + '</td>\n<td>' + str(v['其他上报']) + '</td>\n<td>' + str(v['卡口上报']) + '</td></tr>\n'
+    line_data += '<tr><td>' + k + '</td>\n<td>' + str(v['人脸有效']) + '</td>\n<td>' + str(v['车辆有效']) + '</td>\n<td>' + str(v['人脸上报']) + '</td>\n<td>' + str(v['车辆上报']) + '</td>\n<td>' + str(v['其他上报']) + '</td>\n<td>' + str(v['卡口上报']) + '</td>\n<td><a href="' + minio_prefix + k + '.html">点击查看</a></td></tr>\n'
 
 line_data += '</table>\n</body>\n</html>'
 lines = []
 with open(html_path,encoding='utf8') as fr:
     for line in fr:
         lines.append(line)
-lines = lines[:27]
+lines = lines[:28]
 lines[14] = '<h1>市本级智慧社区数据统计 ' + today + '</h1>\n'
 lines.append(line_data)
 s = ''.join(lines)
