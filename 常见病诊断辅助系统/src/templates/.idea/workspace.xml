@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bdb7765e-cd6c-43a2-a12b-5339dc58ca70" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1TXn4OU4EZmS3HP4HWMO8BICGys" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../static/jquery.min.js" />
+    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bdb7765e-cd6c-43a2-a12b-5339dc58ca70" name="Default Changelist" comment="" />
+      <created>1573615116211</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573615116211</updated>
+      <workItem from="1573615118783" duration="27000" />
+      <workItem from="1573629520235" duration="6290000" />
+      <workItem from="1573806624785" duration="1328000" />
+      <workItem from="1573820543825" duration="734000" />
+      <workItem from="1578382252756" duration="2853000" />
+      <workItem from="1578397653729" duration="937000" />
+      <workItem from="1580291233250" duration="6032000" />
+      <workItem from="1580355219348" duration="6776000" />
+      <workItem from="1580380578147" duration="328000" />
+      <workItem from="1580381143174" duration="2258000" />
+      <workItem from="1580441309292" duration="16837000" />
+      <workItem from="1583836204337" duration="643000" />
+      <workItem from="1584252795376" duration="510000" />
+      <workItem from="1584506344221" duration="1060000" />
+      <workItem from="1584523420268" duration="2890000" />
+      <workItem from="1586313157615" duration="4113000" />
+      <workItem from="1586324526039" duration="783000" />
+      <workItem from="1588324053844" duration="1289000" />
+      <workItem from="1588495715998" duration="6115000" />
+      <workItem from="1588644584213" duration="7429000" />
+      <workItem from="1588652545487" duration="631000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588645502441">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1588645502441" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1588645509746">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1588645509746" />
+  </component>
+</project>

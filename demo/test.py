@@ -1169,6 +1169,16 @@ import time
 
 # print(len(None))
 
-import multiprocessing
-print('cpu内核数量：%s' % multiprocessing.cpu_count())
+# import multiprocessing
+# print('cpu内核数量：%s' % multiprocessing.cpu_count())
+# from functools import reduce
+# # res_area = ((1,1,2,),(1,2,3,),(22,3,4),(5,6,7),(8,7,5))
+# res_area = ()
+# num_community = reduce(lambda x,y: x + y, map(lambda x: 1 if x[0] else 0, res_area))
+# print(num_community)
 
+# print((1,2,3,4)[1:])
+
+import datetime
+weekday_int = datetime.datetime.now().isoweekday()
+print(weekday_int)

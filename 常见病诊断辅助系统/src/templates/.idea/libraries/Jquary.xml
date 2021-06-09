@@ -1,0 +1,8 @@
+<component name="libraryTable">
+  <library name="Jquary" type="javaScript">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../static/jquery.min.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

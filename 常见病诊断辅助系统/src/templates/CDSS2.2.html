@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>CDSS2.1</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #main{
+            margin: 30px auto;
+            height: 800px;
+            width: 1150px;
+            border: rgba(189,189,189,0.4) 2px solid;
+        }
+        .white_words{
+            color: white;
+        }
+        .bg_green{
+            background-color: #8BC34A;
+        }
+        #title{
+            height: 60px;
+            margin-top: 30px;
+            padding: 20px 20px;
+        }
+        #cn_title{
+            line-height: 40px;
+            font-size: 30px;
+        }
+        #en_title{
+            font-size: 12px;
+        }
+        .black_title{
+            color: #212121;
+            font: bold 16px "微软雅黑 Light";
+        }
+        button{
+            background: #8BC34A;
+            color: white;
+            border: #8BC34A 1px solid;
+            height: 20px;
+        }
+        .no_ml{
+            width: 40px;
+            margin-left: -5px;
+        }
+        li{
+            margin-top: 5px;
+            list-style: none;
+            font: 12px "微软雅黑 Light";
+            color: #212121;
+        }
+        .disease_block a{
+            font: 12px "微软雅黑 Light";
+        }
+        .symptom_block li{
+            list-style: disc;
+        }
+        .sub_title{
+            font:bold 13px "微软雅黑 Light"  !important;
+        }
+        .mid_inp{
+            width: 196px;
+            margin-bottom: 2px;
+        }
+        .long_inp{
+            width: 441px;
+            margin-bottom: 2px;
+        }
+        .high_inp{
+            height: 113px;
+        }
+        a{
+            font-weight: bold;
+            text-decoration: none;
+            color: #212121;
+        }
+        .change_flag{
+            color: #8BC34A;
+        }
+        .delete{
+            color: red;
+        }
+        #main_model{
+            height: 640px;
+            width: 1145px;
+            float: left;
+            position: relative;
+            padding: 15px 0;
+        }
+        #support_model{
+            height: 540px;
+            width: 526px;
+            background: #DBDBDB;
+            position: absolute;
+            bottom: 35px;
+            right: 30px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+        .main_inp{
+            margin-left: 10px;
+        }
+        .main_title{
+            margin-left: 30px;
+        }
+        .row,.row_2{
+            margin-top: 10px;
+        }
+        .row_2>label{
+            vertical-align: top;
+        }
+        .area {
+            width: 486px;
+            height: 240px;
+            background-color: white;
+            border-radius: 0 8px 8px 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        #support_model span{
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            height: 25px;
+            width: 74px;
+            display: inline-block;
+            text-align: center;
+        }
+        .white{
+            background-color: white;
+        }
+        .grey{
+            background-color: #DBDBDB;
+        }
+        .disease_block{
+            height: 215px;
+            width: 161px;
+            background-color: #DBDBDB;
+            border-radius: 17px;
+            box-sizing: border-box;
+            padding: 10px;
+            float: left;
+            border: white 5px solid;
+            position: relative;
+        }
+        .symptom_block{
+            width: 130px;
+            height: 145px;
+            overflow-y: auto;
+            position: relative;
+        }
+        .symptom_list{
+            position: absolute;
+            left: 15px;
+        }
+        .result_area{
+            height: 147px;
+        }
+        .clinical_result{
+            height: 25px;
+            width: 450px;
+            margin: 12px;
+            border-radius: 17px;
+            background-color: #DBDBDB;
+        }
+        .long_span{
+            text-align: left !important;
+            width: 390px !important;
+            margin-left: 18px;
+        }
+        .long_button{
+            width: 64px;
+        }
+        #left_button
+        {
+            margin-left: 423px;
+        }
+        label{
+            vertical-align: top;
+        }
+        #common_disease{
+            display: block;
+        }
+        #rare_disease{
+            display: none;
+        }
+        .disease_block button{
+            position: absolute;
+            right: 10px;
+            top: 180px;
+        }
+        .search_model{
+            width: 130px !important;
+        }
+        #search_inp{
+            width: 120px;
+            height: 18px;
+            border: 1px solid #c1c1c1;
+            outline: none;
+        }
+        .button_span{
+            height: 14px !important;
+            width: 82px !important;
+            margin-left: -9px;
+        }
+        .button3{
+            float: left;
+            width: 40px;
+        }
+        .button4{
+            margin-left: 2px;
+        }
+        .search_reset{
+            width: 22px !important;
+            height: 24px !important;
+            vertical-align: bottom;
+        }
+        #space{
+            width: 253px !important;
+            height: 0 !important;
+        }
+        .green_words{
+            color: #8BC34A !important;
+            font: bold 12px "微软雅黑 Light" !important;
+        }
+        .red_words{
+            color: red !important;
+            font: bold 12px "微软雅黑 Light" !important;
+        }
+    </style>
+    <script src="../static/jquery.min.js"></script>
+    <script>
+        function del(obj) // 该函数用于删除诊断结果下达区中的疾病条目
+        {
+            if (confirm("确认要删除该条数据吗") === true) {
+                obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode)
+            }
+        }
+        function turn(obj)//该函数用于切换急性疾病和慢性疾病窗口
+        {
+            let oSpan_1_cN = obj.parentElement.className;
+            if (oSpan_1_cN === "grey")
+            {
+                let oDivs = document.getElementsByClassName("area");
+                for(let k=0;k<oDivs.length;k++)
+                {
+                    if (oDivs[k].style.display === "block")
+                    {
+                        oDivs[k].style.display = "none";
+                    }
+                    else if (oDivs[k].style.display === "none")
+                    {
+                        oDivs[k].style.display = "block";
+                    }
+                }
+                let oSpan_2 = document.getElementsByClassName("white")[0];
+                oSpan_2.className = "grey";
+                obj.parentNode.className = "white";
+            }
+        }
+        function add1(obj)//该函数用于将疾病从疾病详情展示区中将疾病添加至诊断结果下达区
+        {
+            let s = obj.previousElementSibling.innerHTML;
+            add_to_result(s)
+        }
+        function add2()//该函数用于将疾病从检索区添加至诊断结果下达区
+        {
+            let s = document.getElementById("search_inp").value;
+            add_to_result(s)
+        }
+        function add_to_result(s) {
+            let str = "<div class=\"clinical_result\"><div><span class=\"sub_title long_span\"><a href=\"javascript:\" onclick=\"a_to_inp(this)\">"+s+"</a></span><a href=\"javascript:\" class=\"change_flag sub_title\" onclick=\"change_flag(this)\">?</a>&nbsp;&nbsp;<a href=\"javascript:\" class=\"delete sub_title\" onclick=\"del(this)\">X</a></div></div>";
+            let oDiv_2 = document.getElementsByClassName("result_area")[0];
+            oDiv_2.innerHTML += str;
+        }
+        function f1()//该函数在光标从主诉症状或现病史输入框中消失时启动，将主诉症状&现病史一并发送至后端处理，接收到反馈的数据后将其展示至疾病详情展示区
+        {
+            let oText_1 = document.getElementById("main_symptoms");
+            let oText_2 = document.getElementById("main_past_medical_history");
+            $.post("/get_disease_list", {"string": oText_1.value+"&"+oText_2.value}, function (data) {
+                let arr = eval(data);
+                let oHid_1 = document.getElementById("hidden_1");
+                let oHid_2 = document.getElementById("hidden_2");
+                let l_1 = 0;
+                let l_2 = 0;
+                let oLis_1 = "<ul>";
+                let oLis_2 = "<ul>";
+                for (let i = arr.length - 1; i >= 0; i--) {
+                    if (arr[i][2] === "急性疾病")
+                    {
+                        l_1 = l_1+1;
+                        oLis_1 += "<li class=\"disease_block\"><a href=\"javascript:\" class=\"sub_title disease\">"+arr[i][0]+"</a><button class=\"no_ml\" onclick=\"add1(this)\">添加</button><div class=\"symptom_block\"><ul class=\"symptom_list\">";
+                        for (let p = 0; p < arr[i][3].length; p++){
+                            oLis_1 += "<li><a href=\"javascript:\" class=\"black_title green_words\">"+arr[i][3][p]+"</a></li>";
+                        }
+                        for (let p = 0; p < arr[i][4].length; p++){
+                            oLis_1 += "<li><a href=\"javascript:\" class=\"black_title red_words\">"+arr[i][4][p]+"</a></li>";
+                        }
+                        for (let p = 0; p < arr[i][5].length; p++){
+                            oLis_1 += "<li><a href=\"javascript:\" class=\"black_title\">"+arr[i][5][p]+"</a></li>";
+                        }
+                        oLis_1 += "</ul></div></li>"
+                    }
+                    if (arr[i][2] === "慢性疾病")
+                    {
+                        l_2 += 1;
+                        oLis_2 += "<li class=\"disease_block\"><a href=\"javascript:\" class=\"sub_title disease\">"+arr[i][0]+"</a><button class=\"no_ml\" onclick=\"add1(this)\">添加</button><div class=\"symptom_block\"><ul class=\"symptom_list\">";
+                        for (let p = 0; p < arr[i][3].length; p++){
+                            oLis_2 += "<li><a href=\"javascript:\" class=\"black_title green_words\">"+arr[i][3][p]+"</a></li>";
+                        }
+                        for (let p = 0; p < arr[i][4].length; p++){
+                            oLis_2 += "<li><a href=\"javascript:\" class=\"black_title red_words\">"+arr[i][4][p]+"</a></li>";
+                        }
+                        for (let p = 0; p < arr[i][5].length; p++){
+                            oLis_2 += "<li><a href=\"javascript:\" class=\"black_title\">"+arr[i][5][p]+"</a></li>";
+                        }
+                        oLis_2 += "</ul></div></li>"
+                    }
+                }
+                oLis_2 += "</ul>";
+                oHid_1.innerHTML += oLis_1;
+                oHid_2.innerHTML += oLis_2;
+                oHid_1.style.width = (161*l_1).toString()+"px";
+                oHid_2.style.width = (161*l_2).toString()+"px";
+            });
+        }
+        function search()//该函数用于实现检索区的检索功能
+        {
+            let dis_name = document.getElementById("search_inp").value;
+            let oLis = document.getElementsByClassName("disease_block");
+            for (let f = 0; f < oLis.length; f++){
+                let d = oLis[f].firstElementChild.innerHTML;
+                if (d.indexOf(dis_name) === -1)
+                {
+                    oLis[f].style.display = "none";
+                }
+            }
+        }
+        function reset()//该函数用于实现检索区的重置功能
+        {
+            let oLis = document.getElementsByClassName("disease_block");
+            for (let f = 0; f < oLis.length; f++){
+                    oLis[f].style.display = "block";
+            }
+            let oInp = document.getElementById("search_inp");
+            oInp.value = ""
+        }
+        function a_to_inp(obj) //该函数用于实现诊断结果下达区中的条目通过双击变为可输入状态的功能
+        {
+            let s = obj.innerHTML;
+            obj.parentElement.innerHTML = "<input type=\"text\" onblur=\"inp_to_a(this)\" name=\"\" id=\"\" value=\""+s+"\">"
+        }
+        function inp_to_a(obj) //该函数用于实现诊断结果下达区中的条目修改完毕后变回<a>标签的功能
+        {
+            let s = obj.value;
+            obj.parentElement.innerHTML = "<a href=\"javascript:\" onclick=\"a_to_inp(this)\">"+s+"</a>"
+        }
+        function change_flag(obj) //该函数用于改变诊断结果下达区中的条目内问号颜色
+        {
+            if (obj.style.color === "red"){
+                obj.style.color = "#8BC34A"
+            }
+            else {
+                obj.style.color = "red"
+            }
+        }
+        function ref() //该函数用于结束诊断后刷新整个界面
+        {
+            location.reload()
+        }
+    </script>
+</head>
+<body>
+    <div id="main">
+        <div id="title" class="bg_green">
+            <p id="cn_title" class="white_words">全科医生诊断辅助系统</p>
+            <p id="en_title" class="white_words">Clinical Decision Support System for General Practitioner</p>
+        </div>
+        <div id="main_model">
+            <div class="row">
+                <span class="black_title main_title">当前患者：XXX</span>
+                <span class="black_title main_title">性别：男</span>
+                <span class="black_title main_title">年龄：40</span>
+                <span class="black_title main_title">就诊时间：2019-1-1</span>
+                <span class="black_title main_title">就诊序号：0</span>
+                <span class="black_title main_title">就诊类型：普通</span>
+                <span class="black_title main_title">ID：00000000000</span>
+            </div>
+            <div class="row">
+                <label for="past_medical_history" class="black_title main_title">既 &nbsp;往 &nbsp;史</label>
+                <input type="text" class="mid_inp main_inp" id="past_medical_history">
+                <label for="family_medical_history" class="black_title main_title">家 &nbsp;族 &nbsp;史</label>
+                <input type="text" class="mid_inp main_inp" id="family_medical_history">
+                <label for="allergies" class="black_title main_title">过 &nbsp;敏 &nbsp;史</label>
+                <input type="text" class="mid_inp main_inp" id="allergies">
+            </div>
+            <div class="row">
+                <label for="main_symptoms" class="black_title main_title">主诉症状</label>
+                <input type="text" class="long_inp main_inp" id="main_symptoms" onblur="f1()">
+            </div>
+            <div class="row_2">
+                <label for="main_past_medical_history" class="black_title main_title">现 &nbsp;病 &nbsp;史</label>
+                <textarea class="long_inp main_inp high_inp" id="main_past_medical_history" onblur="f1()"></textarea>
+            </div>
+            <div class="row_2">
+                <label for="main_sign" class="black_title main_title">体&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;征</label>
+                <textarea class="long_inp main_inp high_inp" id="main_sign"></textarea>
+            </div>
+            <div class="row_2">
+                <label for="main_test" class="black_title main_title">辅助检查</label>
+                <textarea class="long_inp main_inp high_inp" id="main_test"></textarea>
+            </div>
+            <div class="row_2">
+                <label for="main_treatment" class="black_title main_title">处&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;理</label>
+                <textarea class="long_inp main_inp high_inp" id="main_treatment"></textarea>
+            </div>
+            <div id="support_model">
+                <span class="white">
+                    <a href="javascript:" class="black_title" onclick="turn(this)">急性疾病</a>
+                </span>
+                <span class="grey">
+                    <a href="javascript:" class="black_title" onclick="turn(this)">慢性疾病</a>
+                </span>
+                <span id="space"></span>
+                <select name="keshi" id="">
+                    <option value="volvo">全科</option>
+                    <option value="saab">呼吸科</option>
+                </select>
+                <div class="area" id="common_disease" style="display: block">
+                    <div id="hidden_1">
+                    </div>
+                </div>
+                <div class="area" id="rare_disease" style="display: none">
+                    <div id="hidden_2">
+                    </div>
+                </div>
+                <span class="white black_title">诊断结果</span>
+                <span class="search_model">
+                    <label for="search_inp"></label><input type="text" name="" id="search_inp">
+                </span>
+                <span class="button_span">
+                    <button class="button3" onclick="search()">搜索</button>
+                    <button class="button3 button4" onclick="add2()">添加</button>
+                </span>
+                <span class="search_reset">
+                    <a href="javascript:" onclick="reset()"><img src="static/reset.png" alt="" width="20"></a>
+                </span>
+                <div class="area result_area">
+                    <div class="clinical_result" style="display: none">
+                        <div>
+                            <span class="sub_title long_span">
+                                <a href="javascript:" onclick="a_to_inp(this)">6666感染</a>
+                            </span>
+                            <a href="javascript:" class="change_flag sub_title" onclick="change_flag(this)">?</a>
+                            &nbsp;&nbsp;<a href="javascript:" class="delete sub_title" onclick="del(this)">X</a>
+                        </div>
+                    </div>
+                </div>
+                <button id="left_button" class="no_ml long_button" onclick="ref()">结束诊断</button>
+            </div>
+        </div>
+    </div>
+</body>
