@@ -1179,6 +1179,26 @@ import time
 
 # print((1,2,3,4)[1:])
 
-import datetime
-weekday_int = datetime.datetime.now().isoweekday()
-print(weekday_int)
+# import datetime
+# weekday_int = datetime.datetime.now().isoweekday()
+# print(weekday_int)
+
+# import copy
+# d1 = {'k1':{'k2':[{'k3':'v1','k4':['v2','v22','v222']},{'k5':'v3','k6':['v4','v44','v44']}]}}
+# d2 = copy.deepcopy(d1)
+# d2['k1']['k2']=[{'k3':'v11','k4':['v2','v22','v222']}]
+#
+# print(d1)
+# print(d2)
+
+# print('12345678901234567890' in "12345678901234567890,12345678901234567891,12345678901234567892,12345678901234567893".split(','))
+# print("12345678901234567890,12345678901234567891,12345678901234567892,12345678901234567893".split(','))
+
+# import datetime
+# print(datetime.datetime.now().day)
+# print(datetime.datetime.now().hour)
+
+import time
+# print ("24小时格式：" + time.strftime("%H"))
+# print ("今日的日期：" + time.strftime("%Y-%m-%d %H:%M:%S cdcdcdcd"))
+print(time.strftime("%Y-%m-%d %H:%M:%S kafka/MySQL连接成功"))

@@ -36,7 +36,7 @@ def docx_edit(type, p, path):
 
 # 当天日期
 today = time.strftime("%Y-%m-%d", time.localtime())
-dir = './html'
+dir = 'html'
 # dir = '/home/ligh/relay_stat'
 civic = '市区视频数据统计通报'
 county = '县域视频数据统计通报'

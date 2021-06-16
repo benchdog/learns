@@ -6,7 +6,7 @@ minio_prefix = "http://13.32.4.172/"
 #html head标签加上当天日期
 today=time.strftime("%Y-%m-%d", time.localtime())
 
-html_path='./html/relay_stat_tianwang.html'
+html_path= 'html/relay_stat_tianwang.html'
 # html_path='/usr/local/nginx/html/relay_stat_tianwang.html'
 conn = pymysql.connect(
         host='13.32.4.170',
